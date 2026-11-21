@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="黄奕智 HUANG YIZHI｜황이지 的中韩双语个人作品集">
+  <title>黄奕智｜HUANG YIZHI Portfolio</title>
+  <style>
+    :root{
+      --cream:#f5f0e5; --paper:#fffdf7; --green:#173f32; --green2:#285b48;
+      --sage:#dce5d8; --ink:#26352d; --muted:#718077; --line:#d9dfd4; --accent:#bd805b;
+      --shadow:0 14px 40px rgba(23,63,50,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(18px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+    .hero > div:first-child{animation:fadeUp .75s ease both}
+    .hero-card{animation:fadeUp .85s ease .12s both}
+    .panel,.project,.skill,.activity{transition:transform .22s ease,box-shadow .22s ease}
+    .project:hover,.panel:hover,.skill:hover,.activity:hover{
+      transform:translateY(-4px);box-shadow:0 16px 34px rgba(23,63,50,.11)
+    }
+    .btn,.project .more{transition:background-color .2s ease,color .2s ease,border-color .2s ease}
+    .btn.primary:hover{background:var(--green2);border-color:var(--green2)}
+    .btn.secondary:hover{background:var(--sage)}
+    .project .more:hover{color:var(--accent);border-color:var(--accent)}
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+    }
+
+    body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,"Noto Sans SC","Malgun Gothic",Arial,sans-serif;line-height:1.7}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(245,240,229,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+    .nav{max-width:1160px;margin:auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{font-weight:800;letter-spacing:.04em;color:var(--green);white-space:nowrap}
+    .navlinks{display:flex;gap:22px;align-items:center;font-size:13px;color:#526158}
+    .navlinks a:hover{color:var(--accent)}
+    .menu-btn{display:none;background:var(--green);color:white;border:0;border-radius:99px;padding:8px 14px}
+    .wrap{max-width:1100px;margin:auto;padding:0 28px}
+    .hero{padding:82px 0 64px;display:grid;grid-template-columns:1.15fr .85fr;gap:52px;align-items:center}
+    .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);font-weight:800}
+    h1{font-size:clamp(42px,7vw,76px);line-height:1.06;letter-spacing:-.055em;color:var(--green);margin:18px 0 10px}
+    .krname{font-size:22px;color:var(--green2);font-weight:600;letter-spacing:.08em}
+    .subtitle{font-size:15px;color:var(--muted);margin:20px 0 28px;max-width:560px}
+    .chips{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0}
+    .chip{font-size:11px;letter-spacing:.06em;border:1px solid #cbd7c9;border-radius:99px;padding:6px 12px;color:var(--green2);background:rgba(255,255,255,.35)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{border:1px solid var(--green);border-radius:99px;padding:11px 19px;font-size:13px;font-weight:700;cursor:pointer;display:inline-block}
+    .btn.primary{background:var(--green);color:white}
+    .btn.secondary{color:var(--green);background:transparent}
+    .hero-card{background:var(--sage);border-radius:28px;padding:34px;min-height:330px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .hero-card:after{content:"";position:absolute;width:230px;height:230px;border:1px solid rgba(23,63,50,.16);border-radius:50%;right:-55px;top:-65px}
+    .monogram{font-size:100px;line-height:1;font-weight:800;letter-spacing:-.1em;color:var(--green);opacity:.92}
+    .hero-note{font-size:12px;color:#526b5b;max-width:230px}
+    .school{font-size:13px;color:var(--green);font-weight:700;margin-top:22px}
+    section{padding:64px 0;border-top:1px solid var(--line)}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:30px}
+    .section-head h2{font-size:30px;line-height:1.2;color:var(--green);margin:6px 0}
+    .section-head p{font-size:12px;color:var(--muted);margin:0}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+    .panel{background:var(--paper);border:1px solid #e8e5da;border-radius:18px;padding:25px;box-shadow:var(--shadow)}
+    .panel h3{font-size:15px;color:var(--green);margin:0 0 12px}
+    .panel p{font-size:14px;color:#59665e;margin:0}
+    .kr{display:block;margin-top:12px;color:#849087;font-size:12px}
+    .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .project{background:var(--paper);border:1px solid #e8e5da;border-radius:18px;padding:22px;display:flex;flex-direction:column;min-height:270px}
+    .project-no{font-size:11px;color:var(--accent);letter-spacing:.16em;font-weight:800}
+    .project h3{font-size:18px;line-height:1.4;color:var(--green);margin:16px 0 10px}
+    .project p{font-size:13px;color:#69766d;margin:0 0 18px}
+    .project .more{margin-top:auto;align-self:flex-start;background:none;border:0;border-bottom:1px solid var(--green);padding:4px 0;color:var(--green);font-size:12px;font-weight:700;cursor:pointer}
+    .skill-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+    .skill{padding:18px;background:var(--sage);border-radius:15px}
+    .skill strong{display:block;color:var(--green);font-size:14px;margin-bottom:5px}
+    .skill span{font-size:12px;color:#68776d}
+    .timeline{display:grid;gap:14px}
+    .activity{display:grid;grid-template-columns:150px 1fr;gap:20px;padding:20px 22px;background:var(--paper);border:1px solid #e8e5da;border-radius:16px}
+    .activity time{font-size:12px;color:var(--accent);font-weight:800}
+    .activity h3{font-size:15px;color:var(--green);margin:0 0 5px}
+    .activity p{font-size:13px;color:#69766d;margin:0}
+    .contact{background:var(--green);color:#f8f5ec;border-radius:24px;padding:34px;display:flex;justify-content:space-between;align-items:center;gap:24px}
+    .contact h2{font-size:28px;margin:0 0 8px}
+    .contact p{font-size:13px;color:#d3dfd4;margin:0}
+    .contact a{color:#fff4d9;border-bottom:1px solid #9fb7a3}
+    footer{padding:28px 0 38px;color:#89938a;font-size:11px;display:flex;justify-content:space-between;gap:20px}
+    .modal{position:fixed;inset:0;background:rgba(13,35,27,.55);display:none;align-items:center;justify-content:center;padding:20px;z-index:50}
+    .modal.open{display:flex}
+    .modal-box{max-width:620px;width:100%;max-height:85vh;overflow:auto;background:var(--paper);border-radius:22px;padding:30px;position:relative}
+    .close{position:absolute;right:18px;top:14px;border:0;background:var(--sage);color:var(--green);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:20px}
+    .modal-box h2{color:var(--green);margin:8px 36px 20px 0}
+    .detail-row{margin:15px 0}
+    .detail-row strong{display:block;color:var(--accent);font-size:12px;margin-bottom:4px}
+    .detail-row p{font-size:14px;color:#58665d;margin:0}
+    .hint{font-size:11px;color:#8b948b;margin-top:22px}
+    @media(max-width:760px){    
+      .nav{padding:12px 18px}.menu-btn{display:block}.navlinks{display:none;position:absolute;top:56px;left:0;right:0;background:var(--cream);padding:16px 22px 22px;flex-direction:column;align-items:flex-start;border-bottom:1px solid var(--line)}
+      .navlinks.show{display:flex}.wrap{padding:0 18px}.hero{padding:52px 0 42px;grid-template-columns:1fr;gap:28px}
+      .hero-card{min-height:230px;padding:26px}.monogram{font-size:76px}.about-grid,.project-grid{grid-template-columns:1fr}
+      .skill-grid{grid-template-columns:repeat(2,1fr)}section{padding:46px 0}.section-head{align-items:start;flex-direction:column}
+      .activity{grid-template-columns:1fr;gap:6px}.contact{align-items:flex-start;flex-direction:column;padding:27px}
+      footer{flex-direction:column}
+    }
+  
+    /* About illustration: static inline SVG, independent from page animations */
+    .about-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:stretch}
+    .about-grid .panel:nth-of-type(2){grid-column:1 / -1}
+    .scene-motion{min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;
+      padding:18px;background:#f1eadb;border:1px solid #e5dece;border-radius:20px;overflow:hidden}
+    .studio-svg{display:block;width:100%;height:auto;max-width:520px}
+    .scene-caption{width:100%;max-width:520px;margin:8px auto 0;color:#53665a;font-size:12px;line-height:1.65}
+    .scene-caption strong{color:#234b3a}
+    @media(max-width:760px){
+      .about-grid{grid-template-columns:1fr}
+      .about-grid .panel:nth-of-type(2){grid-column:auto}
+      .scene-motion{width:100%;padding:14px}
+      .studio-svg{max-width:460px}
+    }
+
+
+    /* Motion system for the studio illustration */
+    .scene-motion{
+      transform:translate3d(0,0,0);
+      transform-origin:center center;
+      will-change:transform;
+      overflow:visible;
+      position:relative;
+      z-index:1;
+    }
+    .scene-motion .scene-motion-toggle{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      margin:12px auto 0;padding:9px 14px;border:1px solid #315d4a;
+      border-radius:999px;background:#fffdf7;color:#173f32;
+      font-size:12px;font-weight:700;cursor:pointer;line-height:1.4;
+    }
+    .scene-motion .scene-motion-toggle:hover{background:#dce5d8}
+    .scene-motion .scene-motion-toggle:focus-visible{outline:3px solid #bd805b;outline-offset:3px}
+    .scene-motion .scene-motion-toggle[disabled]{opacity:.65;cursor:not-allowed}
+    .scene-motion .motion-status{font-size:11px;color:#718077;margin:6px 0 0;text-align:center}
+    @media(max-width:760px){
+      .scene-motion{max-width:100%;transform-origin:center center}
+      .studio-svg{max-width:100%}
+    }
+    @media(prefers-reduced-motion:reduce){
+      .scene-motion{will-change:auto}
+    }
+
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <nav class="nav" aria-label="主导航">
+    <a class="brand" href="#home">YIZHI / PORTFOLIO</a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="navLinks">菜单 Menu</button>
+    <div class="navlinks" id="navLinks">
+      <a href="#about">自我介绍 About</a><a href="#projects">项目 Projects</a><a href="#skills">技能 Skills</a><a href="#activities">活动 Activities</a><a href="#contact">联系 Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+    <section class="hero" id="home" style="border:0">
+      <div>
+        <div class="eyebrow">PERSONAL PORTFOLIO · 2026</div>
+        <h1>黄奕智</h1>
+        <div class="krname">황이지 <span style="font-size:14px;color:#87958b">/ HUANG YIZHI</span></div>
+        <p class="subtitle">以商业视角观察问题，以数据和创意寻找解决方案。<br>비즈니스 관점으로 문제를 바라보고, 데이터와 아이디어를 통해 해결책을 찾습니다.</p>
+        <div class="chips"><span class="chip">BUSINESS</span><span class="chip">DATA ANALYSIS</span><span class="chip">MARKETING</span></div>
+        <div class="actions"><a class="btn primary" href="#projects">查看项目 View Projects</a><a class="btn secondary" href="#contact">联系我 Contact</a></div>
+      </div>
+      <div class="hero-card">
+        <div class="eyebrow">MY PROFILE / 나의 프로필</div>
+        <div class="monogram">Y<span style="color:#bd805b">.</span>Z</div>
+        <div>
+          <div class="hero-note">把观察转化为洞察，把想法转化为行动。<br>관찰을 인사이트로, 아이디어를 실행으로.</div>
+          <div class="school">韩国加图立大学 · 经营学系<br>가톨릭대학교 · 경영학과</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="section-head"><div><div class="eyebrow">01 / INTRODUCTION</div><h2>自我介绍 <span style="font-size:17px">소개</span></h2></div><p>关于我的学习方向与职业兴趣 / 학업 방향과 관심 분야</p></div>
+      <div class="about-grid">
+        <article class="panel"><h3>个人简介 · Profile</h3><p>我叫黄奕智（HUANG YIZHI），韩文名황이지，目前就读于韩国加图立大学经营学系。我对市场趋势、消费者行为和商业数据分析感兴趣，希望通过系统的经营知识与实际案例分析，理解企业如何发现问题并制定有效策略。</p><span class="kr">저는 황이지(HUANG YIZHI)이며, 가톨릭대학교 경영학과에 재학 중입니다. 시장 동향, 소비자 행동 및 비즈니스 데이터 분석에 관심이 있습니다.</span></article>
+<div class="scene-motion" role="img" aria-labelledby="studioTitle studioDesc">
+          <svg class="studio-svg" viewBox="0 0 560 390" xmlns="http://www.w3.org/2000/svg">
+            <title id="studioTitle">可爱的数据工作室插画</title>
+            <desc id="studioDesc">两台显示器前有圆润可爱的角色，桌上放着植物和马克杯，表现专注分析数据的工作空间。</desc>
+            <defs>
+              <linearGradient id="wall" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e4eadc"/><stop offset="1" stop-color="#f7e8d7"/></linearGradient>
+              <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d9ad7e"/><stop offset="1" stop-color="#bd895d"/></linearGradient>
+              <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#244d3d"/><stop offset="1" stop-color="#46745b"/></linearGradient>
+              <filter id="softShadow" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="7"/></filter>
+            </defs>
+            <rect x="14" y="12" width="532" height="350" rx="28" fill="url(#wall)"/>
+            <circle cx="472" cy="73" r="34" fill="#f5d7a8" opacity=".7"/>
+            <ellipse cx="280" cy="337" rx="220" ry="13" fill="#7b624c" opacity=".15" filter="url(#softShadow)"/>
+            <!-- framed chart on the wall -->
+            <rect x="39" y="38" width="94" height="72" rx="10" fill="#fffaf0" stroke="#d5d8c9" stroke-width="3"/>
+            <path d="M54 91V78h12v13M73 91V64h12v27M92 91V53h12v38" fill="none" stroke="#6b9a7b" stroke-width="7" stroke-linecap="round"/>
+            <path d="M52 54h65" stroke="#d9b58e" stroke-width="4" stroke-linecap="round"/>
+            <!-- monitors -->
+            <rect x="137" y="88" width="143" height="108" rx="12" fill="#314a3d"/>
+            <rect x="145" y="96" width="127" height="91" rx="7" fill="url(#screen)"/>
+            <path d="M159 166V143h13v23M181 166v-39h13v39M203 166v-28h13v28" fill="none" stroke="#e8c58e" stroke-width="8" stroke-linecap="round"/>
+            <path d="M158 116h70" stroke="#b8d0b7" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+            <path d="M208 116h43" stroke="#e8c58e" stroke-width="4" stroke-linecap="round"/>
+            <path d="M198 197v13m-28 5h85" stroke="#52695a" stroke-width="7" stroke-linecap="round"/>
+            <rect x="292" y="77" width="155" height="119" rx="12" fill="#314a3d"/>
+            <rect x="300" y="85" width="139" height="102" rx="7" fill="url(#screen)"/>
+            <path d="M314 111h82" stroke="#b8d0b7" stroke-width="4" stroke-linecap="round"/>
+            <path d="M314 125h54" stroke="#b8d0b7" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+            <path d="M316 166l22-20 19 8 27-29 24 11" fill="none" stroke="#f0c98d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="357" cy="154" r="4" fill="#f0c98d"/><circle cx="384" cy="125" r="4" fill="#f0c98d"/>
+            <path d="M365 197v13m-31 5h92" stroke="#52695a" stroke-width="7" stroke-linecap="round"/>
+            <!-- desk -->
+            <path d="M58 246Q58 235 72 235H489Q502 235 502 247V269H58Z" fill="url(#wood)"/>
+            <path d="M82 269h14v65H82zm368 0h14v65h-14z" fill="#a97850"/>
+            <path d="M65 248h430" stroke="#f0d0a7" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+            <!-- cute rounded character -->
+            <ellipse cx="282" cy="231" rx="52" ry="12" fill="#7a5a45" opacity=".15"/>
+            <path d="M236 230q-2-54 46-58 48 4 46 58l-12 17h-68z" fill="#e8a97f"/>
+            <circle cx="282" cy="177" r="43" fill="#f2c29c"/>
+            <path d="M245 169q4-43 39-42 35 2 39 40-18-12-35-13-23-1-43 15" fill="#6d5948"/>
+            <circle cx="268" cy="180" r="4" fill="#493d35"/><circle cx="296" cy="180" r="4" fill="#493d35"/>
+            <path d="M275 194q8 8 16 0" fill="none" stroke="#b96f62" stroke-width="3" stroke-linecap="round"/>
+            <ellipse cx="256" cy="190" rx="7" ry="4" fill="#e99b8b" opacity=".7"/><ellipse cx="308" cy="190" rx="7" ry="4" fill="#e99b8b" opacity=".7"/>
+            <path d="M238 212q-19 4-24 19m114-19q19 4 24 19" fill="none" stroke="#e8a97f" stroke-width="13" stroke-linecap="round"/>
+            <path d="M258 236q24 12 48 0" fill="none" stroke="#fff0df" stroke-width="7" stroke-linecap="round"/>
+            <!-- keyboard -->
+            <path d="M230 251h105l-9 13h-88z" fill="#f4eee1" stroke="#b9b6a7" stroke-width="2"/>
+            <path d="M242 256h79m-70 5h62" stroke="#c4c0b2" stroke-width="2" stroke-linecap="round"/>
+            <!-- plant -->
+            <path d="M104 234q-4-34-23-48 27 2 31 29 4-35 29-42-2 31-23 47 26-16 42-5-18 23-47 20" fill="#6e9a75"/>
+            <path d="M105 237v-43" stroke="#4f805e" stroke-width="3" stroke-linecap="round"/>
+            <path d="M83 235h55l-7 27H91z" fill="#d58f70"/>
+            <path d="M89 240h43" stroke="#efc1a2" stroke-width="4" stroke-linecap="round"/>
+            <!-- mug -->
+            <rect x="398" y="218" width="42" height="42" rx="9" fill="#fff7e9" stroke="#c9b9a0" stroke-width="2"/>
+            <path d="M440 228q20-2 15 13-3 10-15 8" fill="none" stroke="#c9b9a0" stroke-width="6"/>
+            <path d="M407 230h24" stroke="#b77d5c" stroke-width="4" stroke-linecap="round"/>
+            <path d="M419 214q-7-8 0-14m10 14q-7-8 0-14" fill="none" stroke="#b9a58b" stroke-width="2" stroke-linecap="round"/>
+            <text x="419" y="251" text-anchor="middle" font-size="9" font-weight="700" fill="#52705d">DATA</text>
+            <!-- little data sparkles -->
+            <path d="M475 145l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#d7a66f"/>
+            <circle cx="113" cy="143" r="5" fill="#d7a66f"/><circle cx="462" cy="195" r="4" fill="#9db59b"/>
+          </svg>
+          <p class="scene-caption"><strong>数据工作室 / 데이터 작업실</strong><br>
+            双显示器代表数据整理与趋势观察，圆润角色象征保持好奇、认真探索的学习者；木桌、绿植与马克杯则营造温暖、专注的工作氛围。<br>
+            듀얼 모니터는 데이터 정리와 흐름 분석을, 둥근 캐릭터는 호기심을 갖고 탐구하는 학습자를 의미합니다. 나무 책상과 식물, 머그컵은 따뜻하고 집중할 수 있는 작업 환경을 표현합니다.
+          </p>
+
+          <button class="scene-motion-toggle" id="sceneMotionToggle" type="button" aria-pressed="false">
+            暂停动态 / 애니메이션 일시정지
+          </button>
+          <p class="motion-status" id="sceneMotionStatus" aria-live="polite">动态已开启 / 움직임 켜짐</p>
+        </div>
+        <article class="panel"><h3>兴趣领域与目标 · Interests & Goals</h3><p>感兴趣的领域：商业数据分析、数字营销、消费者研究与企业经营策略。目标岗位方向：商业分析、市场营销策划或运营分析相关岗位。希望未来能够结合数据分析能力与商业思维，为业务决策提供支持。</p><span class="kr">관심 분야는 비즈니스 데이터 분석, 디지털 마케팅, 소비자 조사 및 경영 전략입니다. 향후 비즈니스 분석·마케팅 기획·운영 분석 분야에서 데이터 기반 의사결정을 지원하고 싶습니다.</span></article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="section-head"><div><div class="eyebrow">02 / SELECTED WORK</div><h2>项目经历 <span style="font-size:17px">프로젝트</span></h2></div></div>
+      <div class="project-grid">
+        <article class="project"><div class="project-no">PROJECT 01</div><h3>校园咖啡消费行为分析</h3><p>从学生消费场景出发，整理影响校园咖啡购买选择的主要因素。</p><button class="more" data-project="0">查看详情 / 자세히 보기 ↗</button></article>
+        <article class="project"><div class="project-no">PROJECT 02</div><h3>校园品牌数字营销企划</h3><p>围绕校园目标用户，构思品牌传播内容与线上推广方案。</p><button class="more" data-project="1">查看详情 / 자세히 보기 ↗</button></article>
+        <article class="project"><div class="project-no">PROJECT 03</div><h3>企业经营数据可视化练习</h3><p>通过表格整理与图表展示，将基础数据转化为易读的信息。</p><button class="more" data-project="2">查看详情 / 자세히 보기 ↗</button></article>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="section-head"><div><div class="eyebrow">03 / CAPABILITIES</div><h2>技能专长 <span style="font-size:17px">역량</span></h2></div><p>工具与基础能力 / 도구 및 기본 역량</p></div>
+      <div class="skill-grid">
+        <div class="skill"><strong>Excel</strong><span>数据整理、基础函数与图表<br>데이터 정리·기초 함수·차트</span></div>
+        <div class="skill"><strong>PowerPoint</strong><span>商业报告与演示文稿制作<br>비즈니스 보고서·발표자료</span></div>
+        <div class="skill"><strong>Word</strong><span>资料整理与文档编辑<br>자료 정리·문서 편집</span></div>
+        <div class="skill"><strong>市场调研</strong><span>问卷思路、资料收集与分析<br>설문 기획·자료 수집·분석</span></div>
+        <div class="skill"><strong>数据分析基础</strong><span>数据观察、分类与可视化<br>데이터 관찰·분류·시각화</span></div>
+        <div class="skill"><strong>Canva</strong><span>基础视觉排版与内容设计<br>기초 시각 편집·콘텐츠 디자인</span></div>
+        <div class="skill"><strong>AI 工具</strong><span>辅助资料整理与创意构思<br>자료 정리·아이디어 구상 보조</span></div>
+        <div class="skill"><strong>沟通协作</strong><span>团队讨论与任务协调<br>팀 토론·업무 조율</span></div>
+      </div>
+    </section>
+
+    <section id="activities">
+      <div class="section-head"><div><div class="eyebrow">04 / EXPERIENCE</div><h2>活动记录 <span style="font-size:17px">활동 기록</span></h2></div><p>学习经历与参与记录 / 학습 및 참여 경험</p></div>
+      <div class="timeline">
+        <article class="activity"><time>大学期间 / 재학 중</time><div><h3>经营学课程团队项目</h3><p>参与课程主题讨论、资料收集与小组报告制作，练习团队沟通、任务分工和成果表达。<br><span class="kr">경영학 수업 팀 프로젝트에 참여하여 주제 토론, 자료 조사 및 팀 보고서 작성을 진행하고 협업과 결과 전달 능력을 길렀습니다.</span></p></div></article>
+        <article class="activity"><time>大学期间 / 재학 중</time><div><h3>个人课程作业与案例分析</h3><p>围绕经营管理相关主题整理资料、分析案例，并通过报告或演示文稿呈现观点。<br><span class="kr">경영 관련 주제에 대한 자료를 정리하고 사례를 분석하여 보고서와 발표자료로 의견을 전달했습니다.</span></p></div></article>
+        <article class="activity"><time>持续进行 / 지속</time><div><h3>数字工具自主学习</h3><p>通过课程练习熟悉办公软件、数据整理及 AI 辅助工具，尝试提升学习与表达效率。<br><span class="kr">수업 실습을 통해 오피스 프로그램, 데이터 정리 및 AI 보조 도구를 익히며 학습과 표현의 효율을 높이고 있습니다.</span></p></div></article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="contact"><div><div class="eyebrow" style="color:#d9b18e">05 / CONTACT</div><h2>保持联系 <span style="font-size:17px">연락하기</span></h2><p>欢迎通过邮件交流学习、项目与合作机会。<br>학습·프로젝트·협업 관련 연락을 환영합니다.</p></div><div><div style="font-size:12px;color:#c5d5c8;margin-bottom:7px">EMAIL / 이메일</div><a href="mailto:3395730588@qq.com">3395730588@qq.com</a></div></div>
+    </section>
+    <footer><span>© 2026 HUANG YIZHI · PERSONAL PORTFOLIO</span><span>韩国加图立大学经营学系 · 가톨릭대학교 경영학과</span></footer>
+  </div>
+</main>
+
+<div class="modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box"><button class="close" id="closeModal" aria-label="关闭">×</button><div class="eyebrow" id="modalNo">PROJECT</div><h2 id="modalTitle"></h2><div id="modalContent"></div></div>
+</div>
+
+<script>
+  const menuBtn=document.getElementById('menuBtn');
+  const navLinks=document.getElementById('navLinks');
+  menuBtn.addEventListener('click',()=>{
+    const opened=navLinks.classList.toggle('show');
+    menuBtn.setAttribute('aria-expanded',String(opened));
+  });
+  navLinks.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{
+    navLinks.classList.remove('show');menuBtn.setAttribute('aria-expanded','false');
+  }));
+
+  const projects=[
+    {no:'PROJECT 01',title:'校园咖啡消费行为分析',details:[
+      ['问题 / 문제','校园咖啡消费选择受到价格、口味、距离和品牌偏好等因素影响，需要梳理主要影响因素。'],
+      ['个人职责 / 역할','示例职责：参与确定调研方向、整理问卷反馈、归纳消费偏好。'],
+      ['方法 / 방법','示例方法：设计简单问卷，收集并分类反馈，使用 Excel 整理数据并制作基础图表。'],
+      ['结果与收获 / 결과와 배움','示例结果：形成消费因素归纳与简要分析结论，理解从用户需求出发分析市场的过程。']
+    ]},
+    {no:'PROJECT 02',title:'校园品牌数字营销企划',details:[
+      ['问题 / 문제','校园品牌需要更有效地触达学生群体，并让传播内容贴近目标用户的兴趣。'],
+      ['个人职责 / 역할','示例职责：参与目标用户定位、竞品观察、推广主题与内容构思。'],
+      ['方法 / 방법','示例方法：整理目标用户特征，分析同类品牌传播方式，规划社交媒体内容与活动流程。'],
+      ['结果与收获 / 결과와 배움','示例结果：完成一份基础营销企划框架，练习将用户需求转化为传播策略。']
+    ]},
+    {no:'PROJECT 03',title:'企业经营数据可视化练习',details:[
+      ['问题 / 문제','原始数据不易快速阅读，需要通过分类和图表突出关键信息。'],
+      ['个人职责 / 역할','示例职责：整理数据字段、检查数据格式、制作图表并说明观察结果。'],
+      ['方法 / 방법','示例方法：使用 Excel 进行数据清理、分类汇总和基础图表制作。'],
+      ['结果与收获 / 결과와 배움','示例结果：形成简要的数据展示页面或报告，提升数据整理与信息表达能力。']
+    ]}
+  ];
+  const modal=document.getElementById('projectModal');
+  function closeModal(){modal.classList.remove('open');}
+  document.querySelectorAll('[data-project]').forEach(btn=>btn.addEventListener('click',()=>{
+    const p=projects[Number(btn.dataset.project)];
+    document.getElementById('modalNo').textContent=p.no;
+    document.getElementById('modalTitle').textContent=p.title;
+    document.getElementById('modalContent').innerHTML=p.details.map(d=>`<div class="detail-row"><strong>${d[0]}</strong><p>${d[1]}</p></div>`).join('');
+    modal.classList.add('open');
+    document.getElementById('closeModal').focus();
+  }));
+  document.getElementById('closeModal').addEventListener('click',closeModal);
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+  // Studio illustration motion: animation is limited to .scene-motion.
+  (() => {
+    const scene = document.querySelector('.scene-motion');
+    const toggle = document.getElementById('sceneMotionToggle');
+    const status = document.getElementById('sceneMotionStatus');
+    if (!scene || !toggle || !status) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const touchDevice = window.matchMedia('(pointer: coarse)');
+    let userPaused = false;
+    let pageVisible = !document.hidden;
+    let inView = true;
+    let rafId = 0;
+    let startTime = null;
+    let pointerX = 0, pointerY = 0, targetX = 0, targetY = 0;
+    let lastTime = 0;
+
+    function canAnimate() {
+      return !userPaused && !reduceMotion.matches && pageVisible && inView;
+    }
+    function setStatus() {
+      if (reduceMotion.matches) {
+        toggle.textContent = '系统减少动态 / 모션 줄이기 설정';
+        toggle.disabled = true;
+        toggle.setAttribute('aria-pressed', 'true');
+        status.textContent = '已遵循系统减少动态设置，插画保持静止。 / 시스템 모션 감소 설정을 따라 정지 상태입니다.';
+      } else {
+        toggle.disabled = false;
+        toggle.setAttribute('aria-pressed', String(userPaused));
+        toggle.textContent = userPaused ? '恢复动态 / 애니메이션 재개' : '暂停动态 / 애니메이션 일시정지';
+        status.textContent = userPaused ? '动态已暂停 / 움직임 일시정지' : '动态已开启 / 움직임 켜짐';
+      }
+    }
+    function stopLoop() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = 0;
+      startTime = null;
+      scene.style.transform = 'translate3d(0,0,0)';
+    }
+    function startLoop() {
+      if (!canAnimate() || rafId) return;
+      lastTime = 0;
+      rafId = requestAnimationFrame(frame);
+    }
+    function frame(time) {
+      rafId = 0;
+      if (!canAnimate()) {
+        stopLoop();
+        return;
+      }
+      if (startTime === null) startTime = time;
+      const elapsed = (time - startTime) % 7000;
+      const floatY = Math.sin((elapsed / 7000) * Math.PI * 2) * 10;
+      pointerX += (targetX - pointerX) * 0.08;
+      pointerY += (targetY - pointerY) * 0.08;
+
+      // Mouse tracking is desktop-only; keep the illustration inside its layout on touch.
+      const desktop = !touchDevice.matches && window.innerWidth > 760;
+      const maxTilt = 30;
+      const tiltX = desktop ? (-pointerY * maxTilt) : 0;
+      const tiltY = desktop ? (pointerX * maxTilt) : 0;
+      const followX = desktop ? pointerX * 10 : 0;
+      const followY = desktop ? pointerY * 7 : 0;
+      const scrollUp = Math.min(50, Math.max(0, window.scrollY * 0.08));
+
+      scene.style.transform =
+        `translate3d(${followX.toFixed(2)}px,${(floatY + followY - scrollUp).toFixed(2)}px,0) ` +
+        `rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg)`;
+      lastTime = time;
+      rafId = requestAnimationFrame(frame);
+    }
+    // Normalize mouse position to -1..1 around the viewport center.
+    function onPointerMove(event) {
+      if (event.pointerType !== 'mouse' || touchDevice.matches || window.innerWidth <= 760) return;
+      targetX = Math.max(-1, Math.min(1, (event.clientX / window.innerWidth - 0.5) * 2));
+      targetY = Math.max(-1, Math.min(1, (event.clientY / window.innerHeight - 0.5) * 2));
+      // Animation loop smoothly interpolates toward these target values.
+    }
+    function resetPointer() { targetX = 0; targetY = 0; }
+    toggle.addEventListener('click', () => {
+      if (reduceMotion.matches) return;
+      userPaused = !userPaused;
+      setStatus();
+      if (canAnimate()) startLoop(); else stopLoop();
+    });
+    window.addEventListener('pointermove', onPointerMove, {passive:true});
+    window.addEventListener('pointerleave', resetPointer, {passive:true});
+    window.addEventListener('resize', () => {
+      if (touchDevice.matches || window.innerWidth <= 760) {
+        pointerX = pointerY = targetX = targetY = 0;
+      }
+    }, {passive:true});
+    document.addEventListener('visibilitychange', () => {
+      pageVisible = !document.hidden;
+      if (canAnimate()) startLoop(); else stopLoop();
+    });
+    reduceMotion.addEventListener?.('change', () => {
+      setStatus();
+      if (canAnimate()) startLoop(); else stopLoop();
+    });
+    const observer = new IntersectionObserver(entries => {
+      inView = entries.some(entry => entry.isIntersecting);
+      if (canAnimate()) startLoop(); else stopLoop();
+    }, {threshold:0.05});
+    observer.observe(scene);
+
+    setStatus();
+    if (canAnimate()) startLoop();
+  })();
+
+</script>
+</body>
+</html>
